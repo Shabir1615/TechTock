@@ -1,0 +1,114 @@
+<%- include('adminhead') %>
+
+<style>
+    .nav-2 h2 a{
+        color: black;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div id="user_search">
+          
+            <div class="col-lg-6">
+                <div id="search">
+                    <input type="search" placeholder="Search Users" aria-label="Search" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-10 m-auto">
+        <div class="table-container">
+            <table class="table table-hover mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">NO</th>
+                        <th scope="col">USERNAME</th>
+                        
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">MOBILE NUMBER</th>
+                        <th scope="col">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach((user, adjindex) => { %>
+                        <% var index = adjindex + 1; %>
+                    <tr>
+                        <td scope="row"><%= index %></td>
+                        <td><%= user.username %></td>
+                   
+                        <td><%= user.email %></td>
+                        <td><%= user.phone %></td>
+                        <td>
+                            <% if (user.isBlocked) { %>
+                            <a><button onClick="confirmFunction('<%= user.id %>')" class="btn btn-sm btn-success">Unblock</button></a>
+                            <!-- <a href="/admin/blockUser/<%= user.id %>"><button class="btn btn-sm btn-success">Unblock</button></a> -->
+                            <% } else { %>
+                            <a><button onClick="confirmFunction('<%= user.id %>')" class="btn btn-sm btn-danger">Block</button></a>
+                            <!-- <a href="/admin/blockUser/<%= user.id %>"><button onClick="confirmFucntion('<%= user.id %>')" class="btn btn-sm btn-danger">Block</button></a> -->
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+<%- include('adminfoot') %>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    async function confirmFunction(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+
+    try {
+        const result = await swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes,Proceed!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        });
+
+        if (result.isConfirmed) {
+            const response = await axios.get(`/admin/blockUser/${id}`);
+            console.log(response);
+
+            if (response.status === 200) {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'user has been blocked.',
+                    'success'
+                );
+                location.reload();
+            }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Request cancelled',
+                'error'
+            );
+        }
+    } catch (error) {
+        console.log(error);
+        alert("SOMETHING WENT WRONG");
+    }
+}
+
+</script>
