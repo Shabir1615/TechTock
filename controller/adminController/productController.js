@@ -89,7 +89,7 @@ console.log(categoryData);
 
 const updateProductPost = async (req, res) => {
   // console.log("hiiiiiii");
-  const { product_name, product_details, category, price } = req.body;
+  const { product_name, product_details, category,quantity, price } = req.body;
   const id = req.params.id;
 
   try {
@@ -99,9 +99,10 @@ const updateProductPost = async (req, res) => {
       return res.render("update_product", { message: "Product not found" });
     }
 
-    product.product_name = product_name;
+    product.name = product_name;
     product.product_details = product_details;
     product.category = category;
+    product.stock = quantity;
     product.price = price;
 
     await product.save();

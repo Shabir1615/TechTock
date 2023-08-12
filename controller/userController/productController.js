@@ -20,7 +20,7 @@ const loadProducts = async (req, res) => {
         const id = req.query.id;
         let productData;
         let totalCount
-
+        console.log(id);
         
             const isCategory = await Category.exists({ _id: id });
 
@@ -47,6 +47,7 @@ const loadProducts = async (req, res) => {
         if (userData){
             walletBalance=userData.wallet.balance
         }
+        console.log(productData);
         res.render("products", {
             id,
             productData,
