@@ -1,18 +1,17 @@
-<%-include("header")-%>
-    <div class="page-wrapper">
 
+    <%-include("header")-%>
+    <div class="page-wrapper">
         <%-include("headSection")-%>
-       
 
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">Shop</h1>
+        			<h1 >Shop</h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
                 <div class="container">
-                    
+                   
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -83,22 +82,21 @@
                 					</div><!-- End .toolbox-layout -->
                 				</div><!-- End .toolbox-right -->
                 			</div><!-- End .toolbox -->
-							
+
                             <div class="products mb-3">
-								<div class="row justify-content-center">
-									<% productData.forEach(function(product) { %>
+                                <div class="row justify-content-center">
+                                    <% productData.forEach(function(product) { %>
                                     <div class="col-6 col-md-4 col-lg-4">
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
-                                                <!-- <span class="product-label label-new">New</span> -->
-                                                <a href="/fullView?id=<%=product._id%>">
-                                                    <img src="<%=product.imageUrl[0].url  %>" alt="Product image" class="product-image" style="aspect-ratio: 1/1;">
+                                               
+                                                <a href="/fullView?id=<%= product._id %>">
+                                                    <img src="<%= product.imageUrl[0].url %>" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
                                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                                    <!-- <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a> -->
-                                                    <!-- <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a> -->
+                                                    
                                                 </div><!-- End .product-action-vertical -->
 
                                                 <div class="product-action">
@@ -107,35 +105,58 @@
                                             </figure><!-- End .product-media -->
 
                                             <div class="product-body">
-                                                
+                                               
                                                 <h3 class="product-title"><a href=""><%=product.name%> </a></h3><!-- End .product-title -->
                                                 <div class="product-price">
 													<span>Rs:</span>
                                                 <%=product.price %>
                                                 </div><!-- End .product-price -->
-                                               
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                                                    </div><!-- End .ratings -->
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+                                                </div><!-- End .rating-container -->
 
-                                              
+                                                <div class="product-nav product-nav-thumbs">
+                                                    <a href="#" class="active">
+                                                        <img src="<%= product.imageUrl[0].url %>" alt="product desc">
+                                                    </a>
+                                                    <a href="#">
+                                                        <img src="<%= product.imageUrl[0].url %>" alt="product desc">
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <img src="<%= product.imageUrl[0].url %>" alt="product desc">
+                                                    </a>
+                                                </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
                                         </div><!-- End .product -->
                                     </div><!-- End .col-sm-6 col-lg-4 -->
-									
-									
-									<% }) %>
+                                    <% }) %>
+
+                                   
+
+                                   
+
+                                 
+                                  
+                                  
                                 </div><!-- End .row -->
                             </div><!-- End .products -->
 
                 			<nav aria-label="Page navigation">
 							    <ul class="pagination justify-content-center">
-							        <li class="page-item <%= (currentPage === 1) ? 'disabled' : '' %>">
-										<a class="page-link page-link-prev" href="?allProductsPage=<%= currentPage - 1 %>" aria-label="Previous" tabindex="-1" aria-disabled="<%= (currentPage === 1) %>">
-											<span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
-										</a>
-										<li class="page-item-total">Page <%= currentPage %> of  <%= totalPages %></li>
-										<li class="page-item <%= (currentPage === totalPages) ? 'disabled' : '' %>">
-											
-											<a class="page-link page-link-next" href="?allProductsPage=<%= currentPage + 1 %>" aria-label="Next" aria-disabled="<%= (currentPage === totalPages) %>">
-												Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+							        <li class="page-item  <%= (currentPage === 1) ? 'disabled' : '' %>">
+							            <a class="page-link page-link-prev"  href="?allProductsPage=<%= currentPage - 1 %>"aria-label="Previous" tabindex="-1" aria-disabled="<%= (currentPage === 1) %>">
+							                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+							            </a>
+                                        <li class="page-item-total">Page <%= currentPage %> of  <%= totalPages %></li>
+                                        <li class="page-item <%= (currentPage === totalPages) ? 'disabled' : '' %>">
+							            
+                                        
+                                            <a class="page-link page-link-next" href="?allProductsPage=<%= currentPage + 1 %>" aria-label="Next" aria-disabled="<%= (currentPage === totalPages) %>">
+							                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
 							            </a>
 							        </li>
 							    </ul>

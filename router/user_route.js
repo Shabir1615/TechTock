@@ -38,8 +38,12 @@ userRouter.post("/otpEnter", isLogout, otpController.otpVerify)
 
 //category/////////////////////////
 userRouter.get("/products", productController.loadProducts)
+userRouter.get("/allProducts", productController.loadAllProducts)
 
 
+//full view
+
+userRouter.get("/fullView", productController.productView)
 
 
 module.exports = userRouter
