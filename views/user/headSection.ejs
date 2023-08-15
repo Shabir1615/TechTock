@@ -119,7 +119,7 @@
                         </div><!-- End .dropdown-cart-total -->
 
                         <div class="dropdown-cart-action">
-                            <a href="cart.html" class="btn btn-primary">View Cart</a>
+                            <a href="/cart" class="btn btn-primary">View Cart</a>
                             <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                         </div><!-- End .dropdown-cart-total -->
                     </div><!-- End .dropdown-menu -->
@@ -180,14 +180,22 @@
                         <li>
                             <a href="#">Account</a>
                             <ul>
-                                <li>
+                                <!-- <li>
                                     <a href="about.html">About</a>
 
                                     <ul>
                                         <li><a href="about.html">About 01</a></li>
                                         <li><a href="about-2.html">About 02</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
+
+
+                                <%if(message === "true"){%>
+                                    <li><a href="/dashboard">My profile</a></li>
+                                    <%}%>
+
+    
+
                                 <li>
                                     <a href="contact.html">Contact</a>
 

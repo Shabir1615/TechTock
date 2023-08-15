@@ -780,3 +780,58 @@ $(document).ready(function () {
         }, 10000)
     }
 });
+
+
+
+function updateCartQuantity(productId,quantity){
+  const apiUrl = 'http://localhost:5000/updateQuantity?id='+productId+'&quantity='+quantity;
+  const requestData = {
+    method: 'GET', // Change this to the desired HTTP method
+    headers: {
+      'Content-Type': 'application/json', // Adjust headers based on the API requirements
+    },
+    body: JSON.stringify({
+      // Your request payload goes here
+    }),
+  };
+
+
+  fetch(apiUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse response body as JSON
+  })
+  .then(data => {
+    // Process the data returned from the API
+    location.reload();
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Fetch error:', error);
+  });
+
+
+
+  
+  
+  
+  
+  
+  
+}
+
+const removeItemFromCart = async (productId, cartId) => {
+    const response = await fetch(`/removeCart?id=${productId}&cartId=${cartId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (response.ok) {
+        location.reload();
+    }
+
+};

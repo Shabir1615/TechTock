@@ -40,7 +40,10 @@ const addToCart = async (productId) => {
             title: "Product successfully added to cart",
             showConfirmButton: true,
             confirmButtonColor: "#00A300",
-        });
+        }).then({
+            
+        })
+      
     }
 };
 

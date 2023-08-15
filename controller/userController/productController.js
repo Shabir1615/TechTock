@@ -1,6 +1,6 @@
 const Product = require("../../model/productModel")
 const Category = require("../../model/categoryModel");
-
+const User= require("../../model/userModel");
 
 
 
@@ -105,7 +105,8 @@ const loadAllProducts = async(req,res)=>{
                 currentPage: page,
                 totalPages,
                 categoryData,
-                message:"true"
+                message:"true",
+                productData
                 
                 
             });
@@ -133,6 +134,8 @@ const loadAllProducts = async(req,res)=>{
 
 const productView = async (req, res) => {
     try {
+        var isOnCartValue =false;
+
         const page = parseInt(req.query.page) || 1; // Get the current page number from the query parameter
         const productsPerPage = 6;
         let relatedProducts;
@@ -160,29 +163,48 @@ const productView = async (req, res) => {
        
         const productData = await Product.findById(productId);
         console.log(productData);
-        
-        const categoryData = await Category.find({ is_blocked: false });
-        
-        
-       
-           
-        
-         
+       categoryData = await Category.find({ is_blocked: false });
+ 
+        if (req.session.user) {
+            const userData = req.session.user;
+            const userId = userData._id;
+            const user = await User.findOne({ _id: userId }).populate("cart.product").lean();
+            var userObject = await User.findOne({ _id: userId });
+            console.log(user,"user");
+            let cartId = null;
+            userObject.cart.forEach(element => {
+                console.log(element.product,"====",productId);
+                if(element.product.toString() == productId.toString()){
+                    isOnCartValue = true
+                }
+            });
+            if (user.cart && user.cart.length > 0) {
+                cartId = user.cart[0]._id;
 
                 if (!productData) {
-                    res.render("404");
-                } else res.render("fullView", { productData, categoryData, loggedIn:true,message:"true" });
-           
-        
-        
+                    res.render("404", { userData });
+                } else res.render("fullView", { productData,cartId, categoryData, userData,loggedIn:true,message:"true",isOnCartValue:isOnCartValue});
+            } else {
+                res.render("fullView", { productData, userData , message:"true",cartId,isOnCartValue:false});
+            }
+        } else {
+
+            if (!productData) {
+                res.render("404", { categoryData });
+              
+            } else{
+             res.render("fullView", { productData, categoryData , message:"false",userData:false,isOnCartValue:false});
+
+            }
+        }
     } catch (error) {
         
-        console.log(error.message);
+        console.log(error,"error");
         const userData = req.session.user;
         var val=(userData)?true:false
         const categoryData = await Category.find({ is_blocked: false });
         
-        res.render("404", {  categoryData , });
+        res.render("404", { userData, categoryData ,loggedIn:val,  walletBalance});
     }
 };
 

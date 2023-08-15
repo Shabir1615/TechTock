@@ -6,6 +6,7 @@ loadLogin = (req,res)=>{
 const User = require("../../model/userModel")
 // const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
+const Category = require("../../model/categoryModel");
 
 
 function validateLogin(data) {
@@ -79,10 +80,20 @@ const doLogout = async (req, res) => {
   }
 };
 
+//my profile/////////////////////////////////
+
+
+const dashboard =async (req,res)=>{
+  const userData = req.session.user;
+  const categoryData = await Category.find({ is_blocked: false });
+  res.render("dashboard",{categoryData , message:"true",userData})
+}
+
 
 
 
 
    module.exports= {verifyLogin,
                      loadLogin,
-                    doLogout}
+                    doLogout,
+                  dashboard}

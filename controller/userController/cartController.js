@@ -10,31 +10,35 @@ const loadCart = async (req, res) => {
     try {
         req.session.checkout = true
         const userData = req.session.user;
-        const userId = req.query.id;
-        walletBalance=userData.wallet.balance
+        // console.log(req.session.user);
+        var userId = userData._id;
+
+
+        // console.log(userId);
+        
         const categoryData = await Category.find({ is_blocked: false });
 
-        const user = await User.findOne({ userId }).populate("cart.product").lean();
-       console.log(user);
+        const user = await User.findOne({ _id:userId }).populate("cart.product").lean();
+    //    console.log(user);
+    //    console.log(111);
         const cart = user.cart;
-       
+        
         let subTotal = 0;
 
         cart.forEach((val) => {
             val.total = val.product.price * val.quantity;
             subTotal += val.total;
         });
-      
         if (cart.length === 0) {
-            res.render("emptyCart", { userData, categoryData ,loggedIn:true, walletBalance});
+            res.render("emptyCart", { userData, categoryData ,loggedIn:true, message:"true"});
         } else {
-            res.render("cart", { userData, cart, subTotal, categoryData,loggedIn:true ,walletBalance});
+            res.render("cart", { userData, cart, subTotal, categoryData,loggedIn:true , message:"true"});
         }
     } catch (error) {
         console.log(error.message);
         const userData = req.session.user;
         const categoryData = await Category.find({ is_blocked: false });
-        res.render("404", { userData, categoryData ,loggedIn:true,walletBalance});
+        res.render("404", { userData, categoryData ,loggedIn:true});
     }
 };
 
@@ -59,7 +63,7 @@ const addToCart = async (req, res) => {
 
            return res.json({ message: "Item already in cart!!" });
         } else {
-            await Product.findOneAndUpdate(filter, { isOnCart: true });
+            // await Product.findOneAndUpdate(filter, { isOnCart: true });
             await User.findByIdAndUpdate(
                 userId,
                 {
@@ -83,9 +87,10 @@ const addToCart = async (req, res) => {
     }
 };
 
+
+
 const updateCart = async (req, res) => {
     try {
-        console.log(111);
         const userData = req.session.user;
         const data = await User.find({ _id: userData._id }, { _id: 0, cart: 1 }).lean();
 
@@ -100,18 +105,42 @@ const updateCart = async (req, res) => {
     }
 };
 
+
+
+const updateQuantity = async(req,res)=>{
+  try {
+        // console.log(req,"req");
+        const userData = req.session.user;
+        const data = await User.find({ _id: userData._id }, { _id: 0, cart: 1 }).lean();
+
+        data[0].cart.forEach((val, i) => {
+            if(val.product==req.query.id) {
+
+                val.quantity = req.query.quantity;
+            }
+        });
+        await User.updateOne({ _id: userData._id }, { $set: { cart: data[0].cart } });
+        res.status(200).send({result:"success"});
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
 const removeCart = async (req, res) => {
     try {
+        // console.log(req,"req");
         const userData = req.session.user;
-        const userId = userData._id;
-        const productId = req.query.productId;
-        const cartId = req.query.cartId;
+        const data = await User.find({ _id: userData._id }, { _id: 0, cart: 1 }).lean();
 
-        await Product.findOneAndUpdate({ _id: productId }, { $set: { isOnCart: false } }, { new: true });
-
-        await User.updateOne({ _id: userId }, { $pull: { cart: { _id: cartId } } });
-
-        res.status(200).send();
+        data[0].cart.forEach((val, i) => {
+            if (val.product == req.query.id) {
+                data[0].cart.splice(i, 1); // Remove the object at index i from the cart array
+            }
+        });
+        await User.updateOne({ _id: userData._id }, { $set: { cart: data[0].cart } });
+        res.status(200).send({result:"success"});
     } catch (error) {
         console.log(error.message);
     }
@@ -170,6 +199,7 @@ const addToWishlist = async (req, res) => {
 
 const addToCartFromWishlist = async (req, res) => {
     try {
+        console.log("===============================================================");
         const userData = req.session.user;
         const userId = userData._id;
         const productId = req.query.productId;
@@ -267,45 +297,47 @@ const loadCheckout = async (req, res) => {
         const userData = req.session.user;
         const userId = userData._id;
         const categoryData = await Category.find({ is_blocked: false });
-        const addressData = await Address.find({ userId: userId });
+        // const addressData = await Address.find({ userId: userId });
 
         const userCart = await User.findOne({ _id: userId }).populate("cart.product").lean();
         const cart = userCart.cart;
 
         let subTotal = 0;
-        let offerDiscount = 0
+        // let offerDiscount = 0
 
         cart.forEach((element) => {
             element.total = element.product.price * element.quantity;
             subTotal += element.total;
         });
 
-        cart.forEach((element) => {
-            if(element.product.oldPrice > 0){
-            element.offerDiscount = (element.product.oldPrice - element.product.price) * element.quantity;
-            offerDiscount += element.offerDiscount;
-            }
-        });
+        // cart.forEach((element) => {
+        //     if(element.product.oldPrice > 0){
+        //     element.offerDiscount = (element.product.oldPrice - element.product.price) * element.quantity;
+        //     offerDiscount += element.offerDiscount;
+        //     }
+        // });
 
-        const now = new Date();
-        const availableCoupons = await Coupon.find({
-            expiryDate: { $gte: now },
-            usedBy: { $nin: [userId] },
-            status: true,
-        });
+        // const now = new Date();
+        // const availableCoupons = await Coupon.find({
+        //     expiryDate: { $gte: now },
+        //     usedBy: { $nin: [userId] },
+        //     status: true,
+        // });
 
        
 
         res.render("checkout", { 
             userData, 
             categoryData, 
-            addressData, 
+            
+            
             subTotal, 
-            offerDiscount, 
+           
             cart, 
-            availableCoupons,
+           
             loggedIn:true,
-            walletBalance
+            message:"true"
+            
              
         });
         
@@ -373,11 +405,26 @@ const validateCoupon = async (req, res) => {
     }
 };
 
+
+const orders = (req,res)=>{
+      res.render("success")
+}
+
+
+
+
+
+
+
+
+
 module.exports = {
     loadCart,
     addToCart,
     updateCart,
     removeCart,
+    updateQuantity,
+    orders,
 
     addToWishlist,
     loadWishlist,

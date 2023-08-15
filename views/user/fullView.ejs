@@ -56,15 +56,82 @@
 
                                             
                                         
-                                            <div class="details-filter-row details-row-size">
-                                                <label for="qty">Qty:</label>
-                                                <div class="product-details-quantity">
-                                                    <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                                </div><!-- End .product-details-quantity -->
-                                            </div><!-- End .details-filter-row -->
+                                            <div class="input-group  input-spinner">
+                                                
+                                                <div class="input-group-prepend">
+                                                    <button onclick="productQuantity('<%= productData._id %>','dec')" style="min-width: 26px" class="btn btn-decrement btn-spinner" type="button">
+                                                        <i  class="icon-minus">-</i>
+                                                    </button>
+                                                </div>
+                                                
+                                                <input  disabled type="number" id="<%= productData._id %>" class="form-control"  name="num-product" value="1">
 
+
+                                                <div class="input-group-append">
+                                                    <button onclick="productQuantity('<%= productData._id %>','inc')" style="min-width: 26px" class="btn btn-increment btn-spinner" type="button">
+                                                        <i class="icon-plus">+</i>
+                                                    </button>
+                                                </div>
+                                            
+                                       </div>
+                 
+                                            
+                                            
+                                         
+                                           
+                                            
+
+
+
+
+                                            
+                                            
+                                            
+                                            
                                             <div class="product-details-action">
-                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                <input name="productName" value="<%= productData.name %>" type="hidden">                    
+                                            <% if (productData.stock) { %>
+                                                <% if (userData) { %>
+                                                    <% if (isOnCartValue) { %>
+                                                        <p><%=productData.isOnCart%></p>
+                                                        <a href="/cart?id=<%= userData._id %>" class="btn-product btn-cart"><span>Go to cart</span></a>
+
+                                                        <% } else { %>
+
+                                                            <!-- Button trigger modal -->
+
+                                                            <div onclick="addToCart('<%= productData._id %>')" id="addToCartBtn" class="ec-single-cart " data-toggle="modal" data-target="#exampleModal">
+                                                            <button class="btn btn-primary">Add To Cart</button>
+                                                            </div>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <p class="m-0 h3">Product successfully added to cart</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Okay</button>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            </div>
+
+                                                         
+                                                            <% } %>
+                                                            <% } else { %>
+                                                                <a href="/login">
+                                                                    <button class="btn btn-primary">Add To Cart</button>
+                                                                </a>
+
+
+                                                                <% } %>
+                                                                <% } else { %>
+                                                                    <button class="btn btn-primary">out of stock</button>
+
+
+                                             <% } %>
+                                              
 
                                                 <div class="details-action-wrapper">
                                                     <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
@@ -724,8 +791,14 @@
     <script src="assets/js/bootstrap-input-spinner.js"></script>
     <script src="assets/js/jquery.elevateZoom.min.js"></script>
     <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <!-- Main JS File -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.22/sweetalert2.min.js" integrity="sha512-pQdCIGAWAwzEHgw7boqX3wRNUqyaj7ta8qHsZ2yZtJofKqwSsh98Q+NJn96MAYCMcMnoZhdUo771JzaJCbrJMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assets/js/main.js"></script>
+<script src="assets/js/users.js"></script>
+<script src="assets/js/userOrder.js"></script>
+
+    <!-- Main JS File -->
+    
+
 </body>
 
 

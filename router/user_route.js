@@ -5,6 +5,7 @@ const loginController = require("../controller/userController/login_controller.j
 const signUpController = require("../controller/userController/signUp_controller.js");
 const otpController = require("../controller/userController/otp_controller.js")
 const productController = require("../controller/userController/productController.js")
+const cartController  = require("../controller/userController/cartController.js")
 const auth = require("../middleWare/userAuth.js")
 const { isLogout, isLogin, isCheckout, blockCheck } = auth
 
@@ -19,7 +20,7 @@ userRouter.get("/", blockCheck, userController.homePage);
 userRouter.get("/login", isLogout,blockCheck, loginController.loadLogin)
 userRouter.post("/login",loginController.verifyLogin)
 userRouter.get('/logout',  loginController.doLogout)
-
+userRouter.get('/dashboard',isLogin,  loginController.dashboard)
 
 
 
@@ -45,5 +46,24 @@ userRouter.get("/allProducts", productController.loadAllProducts)
 
 userRouter.get("/fullView", productController.productView)
 
+
+
+//cart
+userRouter.get('/cart', isLogin, blockCheck, cartController.loadCart)
+userRouter.get('/addToCart',cartController.addToCart)
+userRouter.post('/cartUpdation',cartController.updateCart)
+userRouter.get('/removeCart',cartController.removeCart)
+userRouter.get('/checkStock', cartController.checkStock)
+userRouter.get('/checkout', isLogin, blockCheck, cartController.loadCheckout)
+userRouter.post('/validateCoupon', cartController.validateCoupon)
+userRouter.get('/updateQuantity',cartController.updateQuantity)
+
+
+
+
+
+
+//chechout //////////////////////
+userRouter.get('/success', cartController.orders)
 
 module.exports = userRouter

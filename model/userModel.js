@@ -20,7 +20,59 @@ const userSchema = new mongoose.Schema({
     isBlocked:{
         type:Boolean,
         default:false
-    }
+    },
+    cart: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Product",
+            },
+            quantity: {
+                type: Number,
+                default: 1,
+            },
+        },
+    ],
+
+    address:[
+         {
+            name:{
+                type: String
+               
+            },
+        
+            mobile:{
+                type: Number
+               
+            },
+        
+            addressLine:{
+                type: String
+               
+            },
+        
+            email:{
+                type: String
+               
+            },
+        
+            state:{
+                type: String
+               
+            },
+        
+            pincode:{
+                type: Number
+               
+            },
+        
+            is_default:{
+                type:Boolean
+               
+            }
+
+         }
+    ]
 })
 
 
