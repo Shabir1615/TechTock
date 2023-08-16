@@ -1,7 +1,7 @@
 const User = require("../../model/userModel");
 const Product = require("../../model/productModel");
 const Category = require("../../model/categoryModel");
-// const Address = require("../Models/addressmodel");
+const Address = require("../../model/addressModel");
 // const Coupon = require("../Models/couponModel");
 
 ////////////////////CART CONTROLLERS/////////////////////////////
@@ -297,7 +297,8 @@ const loadCheckout = async (req, res) => {
         const userData = req.session.user;
         const userId = userData._id;
         const categoryData = await Category.find({ is_blocked: false });
-        // const addressData = await Address.find({ userId: userId });
+        const addressData = await Address.find({ userId: userId });
+        console.log(addressData);
 
         const userCart = await User.findOne({ _id: userId }).populate("cart.product").lean();
         const cart = userCart.cart;
@@ -329,8 +330,7 @@ const loadCheckout = async (req, res) => {
         res.render("checkout", { 
             userData, 
             categoryData, 
-            
-            
+            addressData,
             subTotal, 
            
             cart, 
@@ -341,7 +341,7 @@ const loadCheckout = async (req, res) => {
              
         });
         
-    } catch (error) {
+    }    catch (error) {
         console.log(error.message);
     }
 };

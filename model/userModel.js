@@ -34,45 +34,7 @@ const userSchema = new mongoose.Schema({
         },
     ],
 
-    address:[
-         {
-            name:{
-                type: String
-               
-            },
-        
-            mobile:{
-                type: Number
-               
-            },
-        
-            addressLine:{
-                type: String
-               
-            },
-        
-            email:{
-                type: String
-               
-            },
-        
-            state:{
-                type: String
-               
-            },
-        
-            pincode:{
-                type: Number
-               
-            },
-        
-            is_default:{
-                type:Boolean
-               
-            }
-
-         }
-    ]
+    
 })
 
 

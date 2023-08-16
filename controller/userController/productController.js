@@ -20,7 +20,7 @@ const loadProducts = async (req, res) => {
         const id = req.query.id;
         let productData;
         let totalCount
-        console.log(id);
+        console.log(id,"/////////////////////////");
         
             const isCategory = await Category.exists({ _id: id });
 
@@ -45,21 +45,33 @@ const loadProducts = async (req, res) => {
         const userData = req.session.user;
           var val=(userData)?true:false
         if (userData){
-            walletBalance=userData.wallet.balance
+            
+            console.log(productData);
+            res.render("products", {
+                id,
+                productData,
+                categoryData,
+               
+                
+                userData,
+               message:"true",
+                
+                currentPage: page,
+                totalPages,
+               
+            });
+        }else{
+            res.render("products", {
+                id,
+                productData,
+                categoryData,
+               message:"true",
+                
+                currentPage: page,
+                totalPages,
+               
+            });
         }
-        console.log(productData);
-        res.render("products", {
-            id,
-            productData,
-            categoryData,
-            
-            userData,
-           message:"true",
-            
-            currentPage: page,
-            totalPages,
-           
-        });
     } catch (error) {
         console.log(error.message);
         const userData = req.session.user;

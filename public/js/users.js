@@ -9,7 +9,6 @@ const productQuantity = async (id, act) => {
 };
 
 const addToCart = async (productId) => {
-    
     const addToCartButton = document.getElementById("addToCartBtn");
     
     const productName = document.getElementsByName("productName")[0].value;
@@ -25,24 +24,13 @@ const addToCart = async (productId) => {
     let data = await response.json();
     
 
-    if (data.message === "Item already in cart!!") {
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Product is already in cart.\n So quantity increased",
-            showConfirmButton: true,
-            confirmButtonColor: "#00A300",
-        });
-    } else {
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Product successfully added to cart",
-            showConfirmButton: true,
-            confirmButtonColor: "#00A300",
-        });
-    }
-};
+   
+        if (result.value) {
+          form.reset();
+          location.reload();
+        }
+      
+}
 
 const totalPrice = async (id, act, stock) => {
     console.log(11);
@@ -794,4 +782,62 @@ const sortProducts = async()=>{
         filteredData(data)
     }   
 }
+
+
+//my address///////////////////////////////////////////////////
+
+
+addressForm.addEventListener("submit", async function (event) {
+    const addressForm = document.getElementById("addressForm");
+  
+    event.preventDefault();
+  
+    const formData = new FormData(event.target);
+  
+    resetErrorMessage();
+    try {
+      const response = await axios.post("/addNewAddress", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        const result = await Swal.fire({
+          icon: "success",
+          title: "Successfully added new address",
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#4CAF50",
+        });
+        if (result.value) {
+          form.reset();
+          location.reload();
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Some error occured",
+          showConfirmButton: true,
+          confirmButtonText: "CANCEL",
+          confirmButtonColor: "#D22B2B",
+        });
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        const validationErrors = error.response.data.error;
+        Object.keys(validationErrors).forEach((key) => {
+          document.getElementById(key).textContent = validationErrors[key];
+        });
+      } else {
+        alert("something went wrong");
+      }
+    }
+  });
+  
+  function resetErrorMessage() {
+    const errorElements = document.querySelectorAll(".error-msg");
+    errorElements.forEach((element) => {
+      element.textContent = "";
+    });
+  }
 

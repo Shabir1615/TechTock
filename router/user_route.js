@@ -66,4 +66,9 @@ userRouter.get('/updateQuantity',cartController.updateQuantity)
 //chechout //////////////////////
 userRouter.get('/success', cartController.orders)
 
+
+
+
+userRouter.post('/addNewAddress',userController.addNewAddress)
+
 module.exports = userRouter

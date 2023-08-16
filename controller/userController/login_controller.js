@@ -7,6 +7,8 @@ const User = require("../../model/userModel")
 // const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const Category = require("../../model/categoryModel");
+const Address = require("../../model/addressModel");
+const { use } = require("../../router/user_route");
 
 
 function validateLogin(data) {
@@ -84,16 +86,26 @@ const doLogout = async (req, res) => {
 
 
 const dashboard =async (req,res)=>{
-  const userData = req.session.user;
-  const categoryData = await Category.find({ is_blocked: false });
-  res.render("dashboard",{categoryData , message:"true",userData})
+  console.log(8698);
+try {
+    const userData = req.session.user;
+    const userId = userData._id
+    console.log(92,userData);
+    const categoryData = await Category.find({ is_blocked: false });
+    const addressData = await Address.find({userId : userId})
+    res.render("dashboard",{categoryData , message:"true",userData, addressData})
+} catch (error) {
+  console.log(error);
+}
 }
 
 
 
 
 
-   module.exports= {verifyLogin,
-                     loadLogin,
-                    doLogout,
-                  dashboard}
+module.exports= {
+  verifyLogin,
+  loadLogin,
+  doLogout,
+  dashboard
+}

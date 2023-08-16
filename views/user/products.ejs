@@ -125,17 +125,18 @@
                                 </div><!-- End .row -->
                             </div><!-- End .products -->
 
-                			<nav aria-label="Page navigation">
+							<nav aria-label="Page navigation">
 							    <ul class="pagination justify-content-center">
-							        <li class="page-item <%= (currentPage === 1) ? 'disabled' : '' %>">
-										<a class="page-link page-link-prev" href="?allProductsPage=<%= currentPage - 1 %>" aria-label="Previous" tabindex="-1" aria-disabled="<%= (currentPage === 1) %>">
-											<span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
-										</a>
-										<li class="page-item-total">Page <%= currentPage %> of  <%= totalPages %></li>
-										<li class="page-item <%= (currentPage === totalPages) ? 'disabled' : '' %>">
-											
-											<a class="page-link page-link-next" href="?allProductsPage=<%= currentPage + 1 %>" aria-label="Next" aria-disabled="<%= (currentPage === totalPages) %>">
-												Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+							        <li class="page-item  <%= (currentPage === 1) ? 'disabled' : '' %>">
+							            <a class="page-link page-link-prev"  href="?allProductsPage=<%= currentPage - 1 %>"aria-label="Previous" tabindex="-1" aria-disabled="<%= (currentPage === 1) %>">
+							                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+							            </a>
+                                        <li class="page-item-total">Page <%= currentPage %> of  <%= totalPages %></li>
+                                        <li class="page-item <%= (currentPage === totalPages) ? 'disabled' : '' %>">
+							            
+                                        
+                                            <a class="page-link page-link-next" href="?allProductsPage=<%= currentPage + 1 %>" aria-label="Next" aria-disabled="<%= (currentPage === totalPages) %>">
+							                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
 							            </a>
 							        </li>
 							    </ul>
