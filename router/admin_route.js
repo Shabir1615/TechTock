@@ -1,11 +1,13 @@
 const adminController = require("../controller/adminController/adminController");
 const productController = require("../controller/adminController/productController")
-// const adminDashboard = require('../Controllers/adminDashboard')
+const adminDashboard = require('../controller/adminController/adminDashboard')
 const express = require("express");
 const admin_route=express()
 admin_route.set("views", "./Views/admin");
 const store = require("../middleWare/multer");
 const adminAuth= require("../middleWare/adminAuth");
+const orderController = require("../controller/adminController/orderController")
+
 
 
 
@@ -23,7 +25,7 @@ admin_route.get('/logout',adminController.adminLogout)
 
 
 //admin dash//////////////////
-admin_route.get("/admindash",adminController.loadDashboard);
+admin_route.get("/admindash",adminDashboard.loadDashboard);
 
 //user management///////////////////////////////////
 admin_route.get("/users",adminController.loadUsers)
@@ -48,6 +50,33 @@ admin_route.post('/addProducts', adminAuth.isLogin, store.array('image', 4), pro
 admin_route.get('/updateProduct/:id', store.array('image', 4) , adminAuth.isLogin, productController.updateProduct)
 admin_route.post('/update_product_post/:id', store.array('image', 5) , adminAuth.isLogin, productController.updateProductPost)
 admin_route.get('/deleteProduct/:id', adminAuth.isLogin, productController.deleteProduct)
+
+
+
+//order managemnet /////////////////////////////
+admin_route.get("/orders",orderController.loadOrders)
+admin_route.get('/orderDetails', orderController.orderDetails)
+admin_route.post('/updateOrder', orderController.updateOrder)
+
+
+
+//couponsss//////////////////////////////
+
+admin_route.get('/coupons', adminAuth.isLogin, adminController.loadCoupons)
+admin_route.get('/loadAddCoupon', adminAuth.isLogin, adminController.loadAddCoupon)
+admin_route.post('/addCoupon', adminController.addCoupon)
+admin_route.post('/blockCoupon', adminController.blockCoupon)
+admin_route.post('/deleteCoupon', adminController.deleteCoupon)
+
+
+
+//graphsssss
+
+admin_route.get("/admindash",adminDashboard.loadDashboard);
+admin_route.get('/chartData', adminDashboard.chartData)
+admin_route.get('/getSales', adminDashboard.getSales)
+admin_route.post('/downloadSalesReport', adminDashboard.downloadSalesReport)
+admin_route.get('/renderSalesReport', adminDashboard.renderSalesReport)
 
 
 

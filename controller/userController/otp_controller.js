@@ -1,7 +1,7 @@
-const User = require("../../model/userModel")
+const User = require("../../model/userModel");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
-require("dotenv").config(); 
+require("dotenv").config();
 
 let otp;
 const otpGenerator = () => {
@@ -11,7 +11,6 @@ const otpGenerator = () => {
 // exports.otpGet = (req, res) => {
 // res.render("otp")
 //   }
-
 
 const otpGet = (req, res) => {
   const email = req.session.detail?.email; // Use optional chaining to safely access the email property
@@ -42,24 +41,17 @@ const otpGet = (req, res) => {
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-     
-
       if (error) {
         console.error("Error occurred:", error);
         return res.render("login");
       } else {
-
         return res.render("OTP");
-        
       }
     });
   } catch (error) {
-        console.log(error)
+    console.log(error);
   }
-
 };
-
-
 
 const securePassword = async (password) => {
   try {
@@ -72,7 +64,7 @@ const securePassword = async (password) => {
 };
 
 const otpVerify = async (req, res) => {
-   const { first, second, third, fourth } = req.body;
+  const { first, second, third, fourth } = req.body;
   let completeotp;
   completeotp = first + second + third + fourth;
   console.log(completeotp);
@@ -80,17 +72,14 @@ const otpVerify = async (req, res) => {
   console.log(otp);
 
   if (completeotp == otp) {
-    
-    
     try {
-      
       const { username, email, phone, password, isBlocked } = data;
       const hashedPassword = await securePassword(password); // Hash the password
-      
+
       const newUser = new User({
-        username : username,
-        email:email,
-        phone:phone,
+        username: username,
+        email: email,
+        phone: phone,
         password: hashedPassword, // Store the hashed password in the database
         isBlocked,
       });
@@ -115,5 +104,5 @@ const otpVerify = async (req, res) => {
 
 module.exports = {
   otpGet,
-  otpVerify
-}
+  otpVerify,
+};

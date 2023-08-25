@@ -406,9 +406,7 @@ const validateCoupon = async (req, res) => {
 };
 
 
-const orders = (req,res)=>{
-      res.render("success")
-}
+
 
 
 
@@ -424,7 +422,7 @@ module.exports = {
     updateCart,
     removeCart,
     updateQuantity,
-    orders,
+ 
 
     addToWishlist,
     loadWishlist,

@@ -17,10 +17,13 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "moment": "^2.29.4",
     "mongoose": "^7.4.1",
     "multer": "^1.4.5-lts.1",
     "nocache": "^4.0.0",
     "nodemailer": "^6.9.4",
+    "pdfkit": "^0.13.0",
+    "razorpay": "^2.9.2",
     "sweetalert2": "^11.7.22",
     "uuid": "^9.0.0"
   },

@@ -37,7 +37,7 @@
     .card-header {
         padding: 1rem 1.35rem;
         margin-bottom: 0;
-        background-color: rgba(8, 110, 253, 0.03);
+        background-color: rgba(33, 40, 50, 0.03);
         border-bottom: 1px solid rgba(33, 40, 50, 0.125);
     }
 
@@ -46,7 +46,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12" id="user_search">
-            <!-- Your search and messages content here -->
+            <div class="col-6" id="catMsg">
+              
+                <h5 id="noResultsFound">no results found!!</h5>
+            </div>
+
+            <div class="col-6" id="search">
+                <input type="search" placeholder="Search" aria-label="Search" />
+            </div>
         </div>
     </div>
 </div>
@@ -60,37 +67,41 @@
                 <div class="row">
 
                     <div class="col-xl-3 mb-5 mt-5">
+                        <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">This Month Revenue</div>
                             <div class="card-body ml-3 p-5">
-                                <h2>₹</h2>
+                                <h2>₹<%= thisMonthSales %></h2>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xl-3 mt-5">
+                        <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">This Month sales</div>
                             <div class="card-body ml-3 p-5">
-                                <h2></h2>
+                                <h2><%= thisMonthOrder %></h2>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xl-3 mt-5">
+                        <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">Total Revenue</div>
                             <div class="card-body ml-3 p-5">
-                                <h2>₹</h2>
+                                <h2>₹<%= totalRevenue %></h2>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xl-3 mt-5">
+                        <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">Total sales</div>
                             <div class="card-body ml-3 p-5">
-                                <h2></h2>
+                                <h2><%= totalSales %></h2>
                             </div>
                         </div>
                     </div>
@@ -98,8 +109,9 @@
 
                 <div class="row">
                     <div class="col-xl-6">
+                        <!-- Account details card-->
                         <div class="card mb-4">
-                            <div class="card-header">Monthly Sales</div>
+                            <div class="card-header">Monthly Sales </div>
                             <div class="card-body ml-3 p-5">
                                 <canvas id="myChart"></canvas>
                             </div>
@@ -107,6 +119,7 @@
                     </div>
 
                     <div class="col-xl-6">
+                        <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">Monthly Revenue</div>
                             <div class="card-body ml-3 p-5">
@@ -135,16 +148,18 @@
                         <div class="form-group p-2 mt-4">
                             <button onclick="getSalesData()" type="button" class="btn btn-primary">Submit</button>
                         </div>
-                        
+                        <input id="revenue" type="hidden" value="<%= revenueByMonth %>">
                     </div>
                 </nav>
 
-                <div class="row" id="table">
+                <div class="row" id="table" ">
                     <!-- Your table content here -->
+                                        
+                    <!-- table end -->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<%- include('adminfoot') %>
+    <%- include('adminfoot') %>

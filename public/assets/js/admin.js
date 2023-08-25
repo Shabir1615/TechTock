@@ -456,13 +456,16 @@ $(document).ready(function () {
 
 
   
-  if (window.location.pathname === '/admin/dashboard') {
+  if (window.location.pathname === '/admin/admindash') {
+    console.log(460);
   // Move the Chart rendering code inside the window.onload event listener
 window.onload = function() {
+  console.log(462);
   // Place your existing JavaScript code here
   // ...
 
   const getChartData = async()=>{
+    console.log(466);
     const response = await fetch('/admin/chartData',{
       headers:{
         'Content-Type': 'application/json'
@@ -483,6 +486,7 @@ window.onload = function() {
 
 
   function salesGraph(months, ordersByMonth) {
+    console.log(487);
     const ctx = document.getElementById('myChart');
     new Chart(ctx, {
       type: 'bar',

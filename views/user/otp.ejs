@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,111 +10,113 @@
   <!-- <script src="otpTimer.js"></script> -->
   <style>
     body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-image: linear-gradient(135deg, #f6c07f, #94b0da);
-  margin: 0;
-}
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: linear-gradient(135deg, #f6c07f, #94b0da);
+      margin: 0;
+    }
 
-.otp-container {
-  text-align: center;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
+    .otp-container {
+      text-align: center;
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
 
-h1 {
-  color: #007bff;
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
+    h1 {
+      color: #007bff;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-.otp-input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    .otp-input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-input[type="text"] {
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #ff4081, #007bff);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  margin: 0 5px;
-  transition: box-shadow 0.3s;
-  color: #ffffff;
-}
+    input[type="text"] {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ff4081, #007bff);
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      margin: 0 5px;
+      transition: box-shadow 0.3s;
+      color: #ffffff;
+    }
 
-input[type="text"]:focus {
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
 
-#timer {
-  font-size: 14px;
-  color: #888888;
-  margin-top: 10px;
-}
+    #timer {
+      font-size: 14px;
+      color: #888888;
+      margin-top: 10px;
+    }
 
-button {
-  padding: 12px 30px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background-color 0.3s;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-}
+    button {
+      padding: 12px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background-color 0.3s;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    }
 
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
-}
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
 
-button#submit-btn {
-  background: linear-gradient(135deg, #ff4081, #ff146a);
-  color: #ffffff;
-}
+    button#submit-btn {
+      background: linear-gradient(135deg, #ff4081, #ff146a);
+      color: #ffffff;
+    }
 
-button#submit-btn:hover {
-  background: linear-gradient(135deg, #ff4081, #ff0058);
-}
+    button#submit-btn:hover {
+      background: linear-gradient(135deg, #ff4081, #ff0058);
+    }
 
-button#resend-btn {
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  color: #ffffff;
-}
+    button#resend-btn {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: #ffffff;
+    }
 
-button#resend-btn:hover {
-  background: linear-gradient(135deg, #007bff, #003b80);
-}
-
+    button#resend-btn:hover {
+      background: linear-gradient(135deg, #007bff, #003b80);
+    }
   </style>
 </head>
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>OTP Verification</title>
 </head>
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>OTP Verification</title>
 </head>
+
 <body>
   <form action="/otpEnter" method="post">
     <div class="otp-container">
@@ -126,58 +129,58 @@ button#resend-btn:hover {
       </div>
       <!-- <p id="timer">Time Left: <span id="countdown">60</span>s</p> -->
       <div id="otp-timer"></div>
-      
-      <div >
+
+      <div>
         <a href="/otp" class="btn btn-primary">Resend OTP</a>
       </div>
-     
-      
-      
+
+
+
       <button id="submit-btn" type="submit">Submit</button>
     </div>
   </form>
-    <!-- otp timer and resend -->
+  <!-- otp timer and resend -->
 
   <script>
     function startOTPTimer(duration, displayElement) {
-  let timer = duration, minutes, seconds;
+      let timer = duration, minutes, seconds;
 
-  const intervalId = setInterval(function () {
-    minutes = parseInt(timer / 60, 10);
-    seconds = parseInt(timer % 60, 10);
+      const intervalId = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    displayElement.textContent = minutes + ":" + seconds;
+        displayElement.textContent = minutes + ":" + seconds;
 
-    if (--timer < 0) {
-      clearInterval(intervalId);
-      // Handle timeout here (e.g., show resend button)
+        if (--timer < 0) {
+          clearInterval(intervalId);
+          // Handle timeout here (e.g., show resend button)
+        }
+      }, 1000);
     }
-  }, 1000);
-}
 
-// Example usage with 5 minutes (300 seconds) duration
-const otpDuration = 30; // 5 minutes
-const otpTimerDisplay = document.getElementById("otp-timer");
-startOTPTimer(otpDuration, otpTimerDisplay);
+    // Example usage with 5 minutes (300 seconds) duration
+    const otpDuration = 30; // 5 minutes
+    const otpTimerDisplay = document.getElementById("otp-timer");
+    startOTPTimer(otpDuration, otpTimerDisplay);
 
 
-//cursor movement
-function handleOtpInput(input, nextInputId) {
+    //cursor movement
+    function handleOtpInput(input, nextInputId) {
       console.log(11);
-  const maxLength = input.getAttribute('maxlength');
-  const inputValue = input.value;
+      const maxLength = input.getAttribute('maxlength');
+      const inputValue = input.value;
 
-  if (inputValue.length >= maxLength) {
-    const nextInput = document.getElementsByName(nextInputId)[0];
-    nextInput.focus();
-  }
-}
+      if (inputValue.length >= maxLength) {
+        const nextInput = document.getElementsByName(nextInputId)[0];
+        nextInput.focus();
+      }
+    }
 
   </script>
   <!-- <script src="script.js"></script> -->
 </body>
-</html>
 
+</html>

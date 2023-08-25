@@ -1,14 +1,8 @@
-
-
-const productData = require("../../model/productModel")
+const productData = require("../../model/productModel");
 const categoryData = require("../../model/categoryModel");
-
-
 
 const cloudinary = require("../../config/cloudinary");
 require("dotenv").config();
-
-
 
 const addProduct = async (req, res) => {
   try {
@@ -22,25 +16,24 @@ const addProduct = async (req, res) => {
 };
 
 const addProductPost = async (req, res) => {
-
   try {
     console.log(29);
-    const { name,price,quantity,category,description } = req.body;
-    const image = req.files; 
-  let productImages = []
+    const { name, price, quantity, category, description } = req.body;
+    const image = req.files;
+    let productImages = [];
 
     for (const file of image) {
       const result = await cloudinary.uploader.upload(file.path, {
-          folder: "Products"
+        folder: "Products",
       });
 
       const image = {
-          public_id: result.public_id,
-          url: result.secure_url
+        public_id: result.public_id,
+        url: result.secure_url,
       };
 
       productImages.push(image);
-  }
+    }
 
     const exist = await productData.findOne({ name });
     if (exist) {
@@ -52,14 +45,14 @@ const addProductPost = async (req, res) => {
         description,
         category,
         imageUrl: productImages,
-        stock:quantity,
+        stock: quantity,
       });
 
-     const productResult =  await product.save();
-     console.log((`productDetails ${productResult}`));
-      console.log("******Data stored in the database******")
+      const productResult = await product.save();
+      console.log(`productDetails ${productResult}`);
+      console.log("******Data stored in the database******");
 
-     return res.redirect("/admin/products");
+      return res.redirect("/admin/products");
     }
   } catch (error) {
     console.log(`addProduct${error}`);
@@ -74,14 +67,18 @@ const updateProduct = async (req, res) => {
     const product = await productData.findById(productId);
     const categories = await categoryData.find();
     console.log("111111111111111");
-console.log(categoryData);
+    console.log(categoryData);
     // console.log(`.......... product ${product}`);
 
     if (!product) {
-      return res.render("update_product", { message: "Product not found",categoryData ,product});
+      return res.render("update_product", {
+        message: "Product not found",
+        categoryData,
+        product,
+      });
     }
 
-    res.render("update_product", { product,categories});
+    res.render("update_product", { product, categories });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -89,12 +86,12 @@ console.log(categoryData);
 
 const updateProductPost = async (req, res) => {
   // console.log("hiiiiiii");
-  const { product_name, product_details, category,quantity, price } = req.body;
+  const { product_name, product_details, category, quantity, price } = req.body;
   const id = req.params.id;
 
   try {
     const product = await productData.findById(id);
-    
+
     if (!product) {
       return res.render("update_product", { message: "Product not found" });
     }
@@ -106,7 +103,6 @@ const updateProductPost = async (req, res) => {
     product.price = price;
 
     await product.save();
-   
 
     res.redirect("/admin/products");
   } catch (error) {
@@ -118,33 +114,31 @@ const deleteProduct = async (req, res) => {
   try {
     const deleteId = req.params.id;
     await productData.findByIdAndDelete(deleteId);
- 
+
     res.redirect("/admin/products");
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
-const viewProducts = async (req, res) => {  
-  console.log(118)
+const viewProducts = async (req, res) => {
+  console.log(118);
   try {
-   
-    const data = await productData.find().populate("category")
+    const data = await productData.find().populate("category");
     console.log(data);
-    
-    res.render("view_products", { data, totalPages:null,productUpdated:[] })
+
+    res.render("view_products", { data, totalPages: null, productUpdated: [] });
   } catch (error) {
     console.error(`viewProduct${error}`);
     res.status(500).send("Internal Server Error");
   }
 };
 
-module.exports = {  
+module.exports = {
   addProduct,
   addProductPost,
   updateProduct,
   updateProductPost,
   deleteProduct,
-  viewProducts
-  
+  viewProducts,
 };

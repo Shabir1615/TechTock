@@ -1,9 +1,9 @@
 <header class="header header-intro-clearance header-3">
     <div class="header-top">
         <div class="container">
-       
 
-           
+
+
 
         </div><!-- End .container -->
     </div><!-- End .header-top -->
@@ -15,16 +15,18 @@
                     <span class="sr-only">Toggle mobile menu</span>
                     <i class="icon-bars"></i>
                 </button>
-                
+
                 <a href="index.html" class="logo">
                     <!-- <img src="assets/images//logo.png" alt="Molla Logo" width="105" height="25"> -->
-                
+
                     <div class="row align-items-center">
                         <div class="col-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-stopwatch text-white" viewBox="0 0 16 16">
-                                <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
-                                <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                class="bi bi-stopwatch text-white" viewBox="0 0 16 16">
+                                <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z" />
+                                <path
+                                    d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z" />
+                            </svg>
                         </div>
                         <div class="col-9 lh-10px">
                             <p class="m-0 text-white h5">TechTock</p>
@@ -41,14 +43,15 @@
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Search</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search product ..." required>
+                            <input type="search" class="form-control" name="q" id="q" placeholder="Search product ..."
+                                required>
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
             </div>
 
             <div class="header-right">
-                
+
 
                 <div class="wishlist">
                     <a href="wishlist.html" title="Wishlist">
@@ -61,7 +64,8 @@
                 </div><!-- End .compare-dropdown -->
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" data-display="static">
                         <div class="icon">
                             <i class="icon-shopping-cart"></i>
                             <span class="cart-count">2</span>
@@ -120,7 +124,8 @@
 
                         <div class="dropdown-cart-action">
                             <a href="/cart" class="btn btn-primary">View Cart</a>
-                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i
+                                    class="icon-long-arrow-right"></i></a>
                         </div><!-- End .dropdown-cart-total -->
                     </div><!-- End .dropdown-menu -->
                 </div><!-- End .cart-dropdown -->
@@ -132,7 +137,8 @@
         <div class="container">
             <div class="header-left">
                 <div class="dropdown category-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" data-display="static" title="Browse Categories">
                         Browse Categories <i class="icon-angle-down"></i>
                     </a>
 
@@ -162,25 +168,27 @@
                         <li class="megamenu-container active">
                             <a href="/" class="sf-with-ul">Home</a>
 
-                            <li>
-                                <a href="/allProducts" class="">Shop</a>
-                              </li>
-    
+                        <li>
+                            <a href="/allProducts" class="">Shop</a>
+                        </li>
 
-                            
+
+
                         </li>
                         <% categoryData.forEach(function(category) { %>
                             <li>
-                              <a href="/products?id=<%= category._id %>" class=""><%= category.category %></a>
+                                <a href="/products?id=<%= category._id %>" class="">
+                                    <%= category.category %>
+                                </a>
                             </li>
-                          <% }) %>
+                            <% }) %>
 
-                          
-                         
-                        <li>
-                            <a href="#">Account</a>
-                            <ul>
-                                <!-- <li>
+
+
+                                <li>
+                                    <a href="#">Account</a>
+                                    <ul>
+                                        <!-- <li>
                                     <a href="about.html">About</a>
 
                                     <ul>
@@ -190,34 +198,34 @@
                                 </li> -->
 
 
-                                <%if(message === "true"){%>
-                                    <li><a href="/dashboard">My profile</a></li>
-                                    <%}%>
+                                        <%if(message==="true" ){%>
+                                            <li><a href="/dashboard">My profile</a></li>
+                                            <%}%>
 
-    
 
-                                <li>
-                                    <a href="contact.html">Contact</a>
 
-                                    <ul>
-                                        <li><a href="contact.html">Contact 01</a></li>
-                                        <li><a href="contact-2.html">Contact 02</a></li>
+                                                <li>
+                                                    <a href="contact.html">Contact</a>
+
+                                                    <ul>
+                                                        <li><a href="contact.html">Contact 01</a></li>
+                                                        <li><a href="contact-2.html">Contact 02</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <%if(message==="true" ){%>
+                                                    <li><a href="/logout">Logout</a></li>
+                                                    <%}%>
+
+                                                        <%if(message==="false" ){%>
+                                                            <li><a href="/login">Login</a></li>
+                                                            <%}%>
+
+
                                     </ul>
                                 </li>
 
-                                <%if(message === "true"){%>
-                                    <li><a href="/logout">Logout</a></li>
-                                    <%}%>
-                                    
-                                    <%if(message === "false"){%>
-                                        <li><a href="/login">Login</a></li>
-                                        <%}%>
-    
-                               
-                            </ul>
-                        </li>
-                       
-                      
+
                     </ul><!-- End .menu -->
                 </nav><!-- End .main-nav -->
             </div><!-- End .header-center -->

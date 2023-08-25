@@ -208,13 +208,18 @@ function handleShippingSelection(radio) {
 const addressRadios = document.querySelectorAll('input[name="selectedAddress"]');
 const paymentRadios = document.querySelectorAll(".payment-radio");
 const placeOrderBtn = document.getElementById("place-order-btn");
+console.log(`adrs radio${addressRadios}`)
+console.log(paymentRadios+"paymentRadios")
 
 
 addressRadios.forEach((radio) => {
+    
     radio.addEventListener("change", handleAddressSelection);
+    
 });
 
 paymentRadios.forEach((radio) => {
+    
     radio.addEventListener("change", handleAddressSelection);
 });
 
@@ -223,7 +228,10 @@ paymentRadios.forEach((radio) => {
 function handleAddressSelection() {
     
     const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked');
+
+    console.log(selectedAddress+ " selectedAddress")
     const selectedPayment = document.querySelector(".payment-radio:checked");
+    console.log(selectedPayment + "selectedPayment")
     
 
     if (selectedAddress && selectedPayment) {
@@ -239,7 +247,7 @@ function handleAddressSelection() {
 
 const placeOrder = async()=>{
     try {
-
+     console.log("6777777777777777777777777")
         const selectedPayment = document.querySelector(".payment-radio:checked").value;
         
         if(selectedPayment === "Cash On Delivery"){
@@ -261,32 +269,43 @@ const placeOrder = async()=>{
 
 const cashOnDelivery = async(selectedPayment, updatedBalance)=>{
     try {
-
+        
         const selectedAddress = document.querySelector('input[name="selectedAddress"]:checked').value;
         const subTotal = Number(document.getElementById('subTotalValue').value)
+        const selectedPayment = document.querySelector(".payment-radio:checked").value;
+        console.log("hiiiiiiiiiiiiiiiiiii");
         
-        const response = await fetch('/placeOrder',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-
-            body: JSON.stringify({
-
-                selectedAddress: selectedAddress,
-                selectedPayment: selectedPayment,
-                amount: subTotal,
-                walletBalance: updatedBalance,
-                couponData: couponData,
+       
+        
+   
+           const response = await fetch('/placeOrder',{
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+   
+               body: JSON.stringify({
+   
+                   selectedAddress: selectedAddress,
+                   selectedPayment: selectedPayment,
+                   amount: subTotal,
+                   // walletBalance: updatedBalance,
+                   // couponData: couponData,
+                   
+                 })
+   
                 
-              })
-        })
+           })
 
-        
+        console.log(selectedAddress,subTotal,"jhjihjihiuhuhuhuihhi");
+    
+
+       
 
         const orderConfirmData = await response.json()
 
         if(orderConfirmData.order ===  "Success"){
+           
 
             window.location.href = '/orderSuccess'
             
@@ -294,21 +313,22 @@ const cashOnDelivery = async(selectedPayment, updatedBalance)=>{
         }       
         
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 }
 
 
 const razorpay = async (selectedPayment)=>{
     try {
+       
 
         const subTotal = Number(document.getElementById('subTotalValue').value)
 
         var options = {
-            "key": "rzp_test_omwV1KzHmstnbs", // Enter the Key ID generated from the Dashboard
+            "key": "rzp_test_SXcwsdQWrObmK0", // Enter the Key ID generated from the Dashboard
             "amount": subTotal * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
-            "name": "Gadgetry",
+            "name": "TechTock",
             "description": "Order payment",
             "image": "/images/demos/demo-8/logo.png",
             "order_id": undefined, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -320,10 +340,11 @@ const razorpay = async (selectedPayment)=>{
                 "color": "#3399cc"
             }
         }
-
+        console.log("razorpayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         var rzp1 = new Razorpay(options);
         
         rzp1.open();
+        
         
     } catch (error) {
         console.log(error.message);

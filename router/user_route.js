@@ -6,6 +6,7 @@ const signUpController = require("../controller/userController/signUp_controller
 const otpController = require("../controller/userController/otp_controller.js")
 const productController = require("../controller/userController/productController.js")
 const cartController  = require("../controller/userController/cartController.js")
+const orderController = require("../controller/userController/orderController.js")
 const auth = require("../middleWare/userAuth.js")
 const { isLogout, isLogin, isCheckout, blockCheck } = auth
 
@@ -64,7 +65,24 @@ userRouter.get('/updateQuantity',cartController.updateQuantity)
 
 
 //chechout //////////////////////
-userRouter.get('/success', cartController.orders)
+
+userRouter.get("/orderSuccess", orderController.orderSuccess)
+userRouter.post("/placeOrder", orderController.placeOrder)
+userRouter.get("/myOrder", orderController.myOrders)
+userRouter.get("/orderdetails", orderController.orderDetails)
+userRouter.get("/orderFilter", orderController.filterOrder);
+userRouter.post("/updateOrder", orderController.updateOrder);
+
+
+
+//forgot
+userRouter.get('/forgotPassword',isLogout,userController.loadForgotPassword)
+userRouter.post('/verifyEmail',isLogout,userController.verifyForgotEmail)
+userRouter.get('/forgotOtpEnter',isLogout,userController.showForgotOtp)
+userRouter.post('/verifyForgotOtp',isLogout,userController.verifyForgotOtp)
+userRouter.get('/resendForgotPasswordotp', isLogout ,userController.resendForgotOtp)
+userRouter.post('/newPassword',isLogout, userController.updatePassword)
+
 
 
 

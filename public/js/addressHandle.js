@@ -224,55 +224,55 @@ function handleAddressSelection() {
 
 /////////// Order Management ///////////
 
-const placeOrder = async () => {
-  try {
-    const selectedPayment = document.querySelector(
-      ".payment-radio:checked"
-    ).value;
+// const placeOrder = async () => {
+//   try {
+//     const selectedPayment = document.querySelector(
+//       ".payment-radio:checked"
+//     ).value;
 
-    if (selectedPayment === "Cash On Delivery") {
-      cashOnDelivery(selectedPayment);
-    } else if (selectedPayment === "Razorpay") {
-      razorpay(selectedPayment);
-    } else if (selectedPayment === "Wallet") {
-      wallet(selectedPayment);
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     if (selectedPayment === "Cash On Delivery") {
+//       cashOnDelivery(selectedPayment);
+//     } else if (selectedPayment === "Razorpay") {
+//       razorpay(selectedPayment);
+//     } else if (selectedPayment === "Wallet") {
+//       wallet(selectedPayment);
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
-const cashOnDelivery = async (selectedPayment, updatedBalance) => {
-  try {
-    const selectedAddress = document.querySelector(
-      'input[name="selectedAddress"]:checked'
-    ).value;
-    const subTotal = Number(document.getElementById("subTotalValue").value);
+// const cashOnDelivery = async (selectedPayment, updatedBalance) => {
+//   try {
+//     const selectedAddress = document.querySelector(
+//       'input[name="selectedAddress"]:checked'
+//     ).value;
+//     const subTotal = Number(document.getElementById("subTotalValue").value);
 
-    const response = await fetch("/placeOrder", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+//     const response = await fetch("/placeOrder", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
 
-      body: JSON.stringify({
-        selectedAddress: selectedAddress,
-        selectedPayment: selectedPayment,
-        amount: subTotal,
-        walletBalance: updatedBalance,
-        couponData: couponData,
-      }),
-    });
+//       body: JSON.stringify({
+//         selectedAddress: selectedAddress,
+//         selectedPayment: selectedPayment,
+//         amount: subTotal,
+//         walletBalance: updatedBalance,
+//         couponData: couponData,
+//       }),
+//     });
 
-    const orderConfirmData = await response.json();
+//     const orderConfirmData = await response.json();
 
-    if (orderConfirmData.order === "Success") {
-      window.location.href = "/orderSuccess";
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     if (orderConfirmData.order === "Success") {
+//       window.location.href = "/orderSuccess";
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 const razorpay = async (selectedPayment) => {
   try {
@@ -282,7 +282,7 @@ const razorpay = async (selectedPayment) => {
       key: "rzp_test_PAYlAb8IT7rmXG", // Enter the Key ID generated from the Dashboard
       amount: subTotal * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
-      name: "ZAAK",
+      name: "TechTock",
       description: "Order payment",
       image: "/assets/images/demos/demo-7/zaak-logo.png",
       order_id: undefined, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
